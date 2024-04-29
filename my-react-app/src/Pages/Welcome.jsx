@@ -2,7 +2,7 @@ import React from "react";
 import GradientLogo from "../Components/GradientLogo";
 import { Link } from "react-router-dom";
 // import Card from "../Components/Card";
-import Cards from "../assets/G_card.svg";
+import Cards from "../assets/G_plain.svg";
 import bgSvg from "../assets/glow.png";
 
 const Welcome = () => {
