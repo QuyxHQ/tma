@@ -17,13 +17,10 @@ const Popup = ({
   const [isCopied, setIsCopied] = useState(false);
   const [toggle, setToggle] = useState(0);
 
-  console.log(toggle);
-
   useEffect(() => {
     let timeoutId;
-    if (isCopied) {
-      timeoutId = setTimeout(() => setIsCopied(false), 2000);
-    }
+    if (isCopied) timeoutId = setTimeout(() => setIsCopied(false), 2000);
+
     return () => clearTimeout(timeoutId);
   }, [isCopied]);
 
