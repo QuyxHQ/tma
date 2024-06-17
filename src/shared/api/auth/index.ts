@@ -23,7 +23,7 @@ export default class AuthSdk {
                 message: data.error || 'Unable to complete request',
             });
 
-            return;
+            return false;
         }
 
         const { accessToken, refreshToken } = data.data;
