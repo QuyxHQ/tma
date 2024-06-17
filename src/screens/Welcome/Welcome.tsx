@@ -8,33 +8,45 @@ import { useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
 
 const Instructions = () => {
+    const tg = useTelegram();
+
     return (
         <div className="instructions">
             <p>
                 Hi 👋, good one on trying to use our telegram mini app. But inorder to get started,
-                you need to complete the following steps
+                you need to complete the following steps:-
             </p>
 
             <ul>
                 <li>
-                    Proceed to <a href="https://quyx.xyz">quyx.xyz</a>
+                    Proceed to&nbsp;
+                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>quyx.xyz</a>
                 </li>
                 <li>
-                    Connect to the service using your preferred TON wallet{' '}
+                    Connect to the service using your preferred TON wallet&nbsp;
                     <strong>e.g. TonKeeper</strong>
                 </li>
                 <li>
-                    Head over to <a href="https://quyx.xyz/edit-profile">quyx.xyz/edit-profile</a>
+                    Head over to&nbsp;
+                    <a
+                        onClick={() => tg.webApp.openLink('https://quyx.xyz/edit-profile')}
+                        href="https://quyx.xyz/edit-profile"
+                    >
+                        quyx.xyz/edit-profile
+                    </a>
                 </li>
                 <li>
-                    Link this telegram account with the help of the{' '}
+                    Link this telegram account with the help of the&nbsp;
                     <strong>"Login with Telegram"</strong> button on the page
                 </li>
             </ul>
 
             <div>
-                <button>Proceed to quyx.xyz</button>
-                <a href="#">
+                <button onClick={() => tg.webApp.openLink('https://quyx.xyz')}>
+                    Proceed to quyx.xyz
+                </button>
+
+                <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>
                     <span>Watch Explainer Video</span>
                     <Play size={18} />
                 </a>
