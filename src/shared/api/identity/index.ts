@@ -12,7 +12,7 @@ export default class IdentitySdk {
         if (error) {
             toast({
                 type: 'error',
-                message: data.data.error || 'Oops! Could not issue credential',
+                message: data.error || 'Oops! Could not issue credential',
             });
 
             return false;
@@ -34,7 +34,7 @@ export default class IdentitySdk {
         if (error) {
             toast({
                 type: 'error',
-                message: data.data.error || 'Oops! Could not revoke space access to credential',
+                message: data.error || 'Oops! Could not revoke space access to credential',
             });
 
             return false;
@@ -54,7 +54,7 @@ export default class IdentitySdk {
         if (error) {
             toast({
                 type: 'error',
-                message: data.data.error || 'Oops! Could not revoke credential',
+                message: data.error || 'Oops! Could not revoke credential',
             });
 
             return false;
@@ -74,6 +74,7 @@ export default class IdentitySdk {
             .get(`/identity/user?page=${page}&limit=${limit}&revalidate=${revalidate}`);
 
         if (error) return undefined;
+        console.log(data);
         const { total, data: credentials } = data.data;
 
         return { total, credentials };

@@ -16,16 +16,14 @@ export default class AuthSdk {
             .post('/auth/telegram', { tg_init });
 
         if (error) {
-            if (statusCode == 400) {
-                toast({
-                    type: 'error',
-                    message: data.error || 'Unable to complete request',
-                });
+            if (statusCode == 422) return null;
 
-                return;
-            }
+            toast({
+                type: 'error',
+                message: data.error || 'Unable to complete request',
+            });
 
-            if (statusCode == 409) return null;
+            return;
         }
 
         const { accessToken, refreshToken } = data.data;

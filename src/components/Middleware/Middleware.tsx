@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useApp from '../../hooks/useApp';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Loader } from '..';
+import { Footer, Loader, Navbar } from '..';
 
 const LoadingScreen = () => {
     return (
@@ -36,7 +36,21 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
         }
     }, [isMounting, isAuthenticated, user]);
 
-    return <main className="app">{isMounting ? <LoadingScreen /> : children}</main>;
+    return (
+        <main className="app">
+            {isMounting ? (
+                <LoadingScreen />
+            ) : isAuthenticated ? (
+                <>
+                    <Navbar />
+                    {children}
+                    <Footer />
+                </>
+            ) : (
+                children
+            )}
+        </main>
+    );
 };
 
 export default Middleware;

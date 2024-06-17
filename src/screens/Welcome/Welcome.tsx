@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FullLogo, HandShake, Node, Shield } from '../../icons';
+import { FullLogo, HandShake, Node, Play, Shield } from '../../icons';
 import { CustomMainButton, GradientGlow } from '../../components';
 import useTelegram from '../../hooks/useTelegram';
 import useApi from '../../hooks/useApi';
@@ -7,13 +7,49 @@ import useApp from '../../hooks/useApp';
 import { useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
 
+const Instructions = () => {
+    return (
+        <div className="instructions">
+            <p>
+                Hi 👋, good one on trying to use our telegram mini app. But inorder to get started,
+                you need to complete the following steps
+            </p>
+
+            <ul>
+                <li>
+                    Proceed to <a href="https://quyx.xyz">quyx.xyz</a>
+                </li>
+                <li>
+                    Connect to the service using your preferred TON wallet{' '}
+                    <strong>e.g. TonKeeper</strong>
+                </li>
+                <li>
+                    Head over to <a href="https://quyx.xyz/edit-profile">quyx.xyz/edit-profile</a>
+                </li>
+                <li>
+                    Link this telegram account with the help of the{' '}
+                    <strong>"Login with Telegram"</strong> button on the page
+                </li>
+            </ul>
+
+            <div>
+                <button>Proceed to quyx.xyz</button>
+                <a href="#">
+                    <span>Watch Explainer Video</span>
+                    <Play size={18} />
+                </a>
+            </div>
+        </div>
+    );
+};
+
 const Welcome: React.FC<{}> = () => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const tg = useTelegram();
     const { getUser } = useApp();
     const navigate = useNavigate();
-    const { openModal, setModalBody } = useModal();
+    const { openModal, setModalBody, setTitle } = useModal();
 
     const slider = [
         {
@@ -40,10 +76,11 @@ const Welcome: React.FC<{}> = () => {
         const { auth } = await useApi();
 
         const response = await auth.signIn(tg.webApp.initData);
-        if (response == undefined) {
+        if (response == null) {
             // no user found to have linked this tg account
             // open modal & give user a walkthrough
-            setModalBody(<>Link this TG account to your Quyx account first</>);
+            setTitle('Heads up!');
+            setModalBody(<Instructions />);
             openModal();
 
             return setIsLoading(false);
