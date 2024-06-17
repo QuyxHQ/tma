@@ -5,7 +5,8 @@ export interface AsyncStorage {
     clear(): Promise<void>;
 }
 
-const PREFIX = `__/QUYX/TMA`;
+// const PREFIX = `__/QUYX/TMA`;
+const PREFIX = `__/QUYX`;
 
 export type CreateAsyncStorage = (name: string) => AsyncStorage;
 

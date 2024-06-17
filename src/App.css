@@ -1,0 +1,299 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+svg {
+    display: block;
+    margin-bottom: 0px;
+}
+
+main.app {
+    width: 100%;
+    max-width: 30rem;
+    margin: 0% auto;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+button:disabled {
+    cursor: no-drop;
+    opacity: 0.7;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 1.25rem 0.7rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.05rem;
+    gap: 0.8rem;
+    font-weight: 600;
+    background-color: dodgerblue;
+    color: #fff;
+}
+
+.modal {
+    position: fixed;
+    width: 100%;
+    max-width: 35rem;
+    margin: 0% auto;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal .modal-box {
+    position: relative;
+    background-color: #fff;
+    width: 90%;
+    height: max-content;
+    margin: 3rem auto;
+    max-width: 25rem;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    animation-name: fromTop;
+    animation-duration: 0.5s;
+    -webkit-animation-name: fromTop;
+    -webkit-animation-duration: 0.5s;
+    padding-top: 1.5rem;
+}
+
+.modal .modal-title {
+    width: 100%;
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+.modal .modal-title h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.modal .modal-title .close {
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.modal .body {
+    padding: 1.7rem 1.5rem;
+}
+
+@keyframes fromTop {
+    0% {
+        top: -100px;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+.basic-input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    padding: 1.2rem 1.6rem;
+    font-size: 0.95rem;
+    transition: 0.2s ease-in-out all;
+    -webkit-transition: 0.2s ease-in-out all;
+    outline: none;
+    background-color: transparent;
+    color: #000;
+}
+
+.basic-input:focus {
+    border: 1px solid dodgerblue;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.welcome-screen {
+    width: 100%;
+    height: 100dvh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.welcome-screen .h-100 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.welcome-screen .h-100 > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.welcome-screen .h-100 > div .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.welcome-screen .h-100 > div .content svg {
+    opacity: 0.2;
+    margin-bottom: 1rem;
+}
+
+.welcome-screen .h-100 > div .content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    width: 100%;
+    max-width: 20rem;
+    line-height: 150%;
+}
+
+.welcome-screen .h-100 > div .content p {
+    font-size: 0.9rem;
+    line-height: 200%;
+    opacity: 0.35;
+    width: 88%;
+}
+
+.welcome-screen .h-100 > div .dots {
+    border: 1px solid #ddd;
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 100px;
+    background-color: #eeeeee49;
+}
+
+.welcome-screen .h-100 > div .dots span {
+    width: 0.6rem;
+    height: 0.6rem;
+    display: block;
+    border-radius: 50%;
+    background-color: #ddd;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: 0.3s ease-in-out all;
+}
+
+.welcome-screen .h-100 > div .dots span.active {
+    background-color: #aaa;
+    border: 1px solid #555;
+}
+
+.loading-screen {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 0;
+    flex-direction: column;
+    position: relative;
+}
+
+.loading-screen > div {
+    gap: 1.5rem;
+}
+
+.loading-screen p {
+    font-family: var(--font-secondary);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.loading-screen span {
+    display: block;
+    position: relative;
+    height: 32px;
+    width: 150px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+.loading-screen span:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ff3d00;
+    animation: ballbns 3s ease-in-out infinite;
+}
+
+@keyframes ballbns {
+    0% {
+        left: 0;
+        transform: translateX(0%);
+        box-shadow: -5px 0 0 -1px rgba(255, 61, 0, 0.9), -10px 0 0 -2px rgba(255, 61, 0, 0.8),
+            -15px 0 0 -4px rgba(255, 61, 0, 0.6), -20px 0 0 -6px rgba(255, 61, 0, 0.4),
+            -25px 0 0 -8px rgba(255, 61, 0, 0.2);
+    }
+    49% {
+        left: 100%;
+        transform: translateX(-100%);
+        box-shadow: -5px 0 0 -1px rgba(255, 61, 0, 0.9), -10px 0 0 -2px rgba(255, 61, 0, 0.8),
+            -15px 0 0 -4px rgba(255, 61, 0, 0.6), -20px 0 0 -6px rgba(255, 61, 0, 0.4),
+            -25px 0 0 -8px rgba(255, 61, 0, 0.2);
+    }
+    51% {
+        left: 100%;
+        transform: translateX(-100%);
+        box-shadow: 5px 0 0 -1px rgba(255, 61, 0, 0.9), 10px 0 0 -2px rgba(255, 61, 0, 0.8),
+            15px 0 0 -4px rgba(255, 61, 0, 0.6), 20px 0 0 -6px rgba(255, 61, 0, 0.4),
+            25px 0 0 -8px rgba(255, 61, 0, 0.2);
+    }
+    100% {
+        left: 0;
+        transform: translateX(0%);
+        box-shadow: 5px 0 0 -1px rgba(255, 61, 0, 0.9), 10px 0 0 -2px rgba(255, 61, 0, 0.8),
+            15px 0 0 -4px rgba(255, 61, 0, 0.6), 20px 0 0 -6px rgba(255, 61, 0, 0.4),
+            25px 0 0 -8px rgba(255, 61, 0, 0.2);
+    }
+}

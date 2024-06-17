@@ -52,12 +52,12 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setIsAuthenticating(true);
 
         const whoami = await user.whoami();
-        // if (whoami) {
-        //     dispatch({ type: 'LOGIN', payload: whoami });
-        //     setIsAutenticated(true);
-        // } else {
-        //     setIsAutenticated(false);
-        // }
+        if (whoami) {
+            login(whoami);
+            setIsAutenticated(true);
+        } else {
+            setIsAutenticated(false);
+        }
 
         setIsMounting(false);
         setIsAuthenticating(false);

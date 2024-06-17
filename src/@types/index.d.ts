@@ -1,4 +1,36 @@
-type User = {};
+type User = Base & {
+    username: string;
+    hasBlueTick: boolean;
+    address: string;
+    did: string;
+    pfp?: string | null;
+    bio?: string | null;
+    tg?: {
+        id: number;
+        firstName: string;
+        lastName?: string | null;
+        username?: string | null;
+        languageCode?: string | null;
+        photoUrl?: string | null;
+    };
+    socials?: {
+        x?: string | null;
+        yt?: string | null;
+        tg?: string | null;
+        other?: string | null;
+    };
+    pending_usernames: {
+        username: string;
+        address: string;
+    }[];
+};
+
+type Base = {
+    readonly _id: string;
+    createdAt: string;
+    updatedAt: string;
+    _v: number;
+};
 
 type TelegramUser = {
     id: number;
@@ -39,4 +71,43 @@ type IconProps = {
     className?: string;
     handleClick?: () => void;
     fill?: string;
+};
+
+type AccountAddress = {
+    address: string;
+    name?: string;
+    is_scam: boolean;
+    icon?: string;
+    is_wallet: boolean;
+};
+
+type NftItemPrice = {
+    value: string;
+    token_name: string;
+};
+
+type NftItemSale = {
+    address: string;
+    market: AccountAddress;
+    owner?: AccountAddress;
+    price: NftItemPrice;
+};
+
+type NftItem = {
+    address: string;
+    index: number;
+    owner?: AccountAddress;
+    collection?: {
+        address: string;
+        name: string;
+        description: string;
+    };
+    verified: boolean;
+    metadata: Record<string, any>;
+    sale?: NftItemSale;
+    previews?: [{ resolution: string; url: string }];
+    dns?: string;
+    approved_by: 'getgems' | 'tonkeeper' | 'ton.diamonds';
+    include_cnft?: boolean;
+    trust: 'whitelist' | 'graylist' | 'blacklist' | 'none';
 };
