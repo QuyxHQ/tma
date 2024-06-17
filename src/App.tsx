@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useCallback, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import useTelegram from './hooks/useTelegram';
+import './App.css';
+import { Toaster } from 'react-hot-toast';
+import { Middleware, Modal } from './components';
+import { CreateCredential, Dashboard, NotFound, SingleCredential, Welcome } from './screens';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC<{}> = () => {
+    const tg = useTelegram();
+    const navigate = useNavigate();
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    const onBackClick = useCallback(() => navigate(-1), [navigate]);
 
-export default App
+    useEffect(() => {
+        (async function () {
+            if (!tg) return;
+
+            tg.webApp.ready();
+            tg.webApp.BackButton.onClick(onBackClick);
+
+            if (!tg.webApp.isExpanded) tg.webApp.expand();
+            if (!tg.webApp.isClosingConfirmationEnabled) tg.webApp.enableClosingConfirmation();
+
+            return () => tg.webApp.BackButton.offClick(onBackClick);
+        })();
+    }, [tg]);
+
+    return (
+        <main>
+            <Modal />
+            <Toaster position="top-center" reverseOrder={false} />
+            <Routes>
+                <Route index element={<Middleware children={<Dashboard />} />} />
+                <Route path="/get-started" element={<Middleware children={<Welcome />} />} />
+                <Route
+                    path="/create-credential"
+                    element={<Middleware children={<CreateCredential />} />}
+                />
+                <Route
+                    path="/credential/:hash"
+                    element={<Middleware children={<SingleCredential />} />}
+                />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </main>
+    );
+};
+
+export default App;
