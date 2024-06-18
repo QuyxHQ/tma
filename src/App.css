@@ -23,6 +23,7 @@ main.app {
     width: 100%;
     max-width: 30rem;
     overflow-x: hidden;
+    min-height: 100dvh;
     margin: 0% auto;
 }
 
@@ -122,9 +123,9 @@ button:disabled {
 .basic-input {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid #bbb;
+    border: 1px solid #ddd;
     padding: 1.2rem 1.6rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: 0.2s ease-in-out all;
     -webkit-transition: 0.2s ease-in-out all;
     outline: none;
@@ -251,7 +252,7 @@ button:disabled {
     font-weight: 600;
 }
 
-.loading-screen span {
+span.loader {
     display: block;
     position: relative;
     height: 32px;
@@ -262,7 +263,7 @@ button:disabled {
     border-radius: 20px;
 }
 
-.loading-screen span:before {
+span.loader:before {
     content: '';
     position: absolute;
     left: 0;
@@ -390,4 +391,173 @@ button:disabled {
     gap: 0.5rem;
     font-weight: 400;
     color: #888;
+}
+
+.main-screen {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar {
+    background-color: #fff;
+    padding: 0.8rem 1.6rem;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    width: 100%;
+    max-width: 30rem;
+    z-index: 999;
+}
+
+.navbar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #000;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+}
+
+.navbar button svg {
+    stroke-width: 1.2px;
+}
+
+.navbar img {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 2.5rem 0;
+    font-size: 0.9rem;
+}
+
+footer p {
+    opacity: 0.5;
+}
+
+footer span {
+    font-weight: 500;
+}
+
+.main-body {
+    padding: 1rem 0.5rem;
+    padding-top: 7.5rem;
+}
+
+.main-body h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.credential {
+    border: 1px solid #ddd;
+    padding: 1.2rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+svg {
+    display: block;
+}
+
+.credential .top div {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: green;
+    font-weight: 500;
+    font-size: 0.75rem;
+    border: 1px solid green;
+    background-color: rgba(0, 128, 0, 0.07);
+    border-radius: 100px;
+    padding: 0.45rem 0.9rem;
+}
+
+.credential .top h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.credential .top svg {
+    stroke-width: 2px;
+}
+
+.credential .json {
+    background-color: #eeeeee71;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.1rem 0.9rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.credential .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.credential .info > div {
+    gap: 0.9rem;
+}
+
+.credential .info > div p {
+    border-left: 1px solid #bbb;
+    padding-left: 1rem;
+    width: 85%;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #888;
+}
+
+.credential .info > div p strong {
+    font-weight: 500;
+    color: #555;
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 4rem 0;
+}
+
+.empty svg {
+    stroke-width: 0.8px;
+    margin-bottom: 0.6rem;
+    opacity: 0.3;
+}
+
+.empty p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.empty a {
+    color: dodgerblue;
+    border-bottom: 1px solid dodgerblue;
+    padding: 0.2rem 0.15rem;
+    font-size: 0.9rem;
+    width: max-content;
 }

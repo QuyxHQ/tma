@@ -13,6 +13,16 @@ const App: React.FC<{}> = () => {
     const onBackClick = useCallback(() => navigate(-1), [navigate]);
 
     useEffect(() => {
+        const handleHistoryChange = () => {
+            if (window.history.length === 1) tg.webApp.BackButton.hide();
+            else tg.webApp.BackButton.show();
+        };
+
+        window.addEventListener('popstate', handleHistoryChange);
+        return () => window.removeEventListener('popstate', handleHistoryChange);
+    }, []);
+
+    useEffect(() => {
         (async function () {
             if (!tg) return;
 
@@ -38,7 +48,7 @@ const App: React.FC<{}> = () => {
                     element={<Middleware children={<CreateCredential />} />}
                 />
                 <Route
-                    path="/credential/:hash"
+                    path="/credential/:jwt"
                     element={<Middleware children={<SingleCredential />} />}
                 />
                 <Route path="*" element={<NotFound />} />

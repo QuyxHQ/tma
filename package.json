@@ -12,12 +12,17 @@
     "dependencies": {
         "@tanstack/react-query": "^5.45.1",
         "axios": "^1.7.2",
+        "date-fns": "^3.6.0",
+        "lodash": "^4.17.21",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hot-toast": "^2.4.1",
-        "react-router-dom": "^6.23.1"
+        "react-json-view": "^1.21.3",
+        "react-router-dom": "^6.23.1",
+        "ton-crypto": "^3.2.0"
     },
     "devDependencies": {
+        "@types/lodash": "^4.17.5",
         "@types/react": "^18.2.37",
         "@types/react-dom": "^18.2.15",
         "@typescript-eslint/eslint-plugin": "^6.10.0",

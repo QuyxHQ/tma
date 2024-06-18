@@ -10,7 +10,7 @@ const LoadingScreen = () => {
                 style={{ height: '100%' }}
                 className="d-flex align-items-center justify-content-center"
             >
-                <span></span>
+                <span className="loader" />
             </div>
 
             <div className="d-flex flex-column align-items-center">
@@ -32,7 +32,7 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
                 return navigate('/get-started');
             }
 
-            if (user) return navigate('/');
+            if (user && location.pathname == '/get-started') return navigate('/');
         }
     }, [isMounting, isAuthenticated, user]);
 
@@ -41,11 +41,14 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
             {isMounting ? (
                 <LoadingScreen />
             ) : isAuthenticated ? (
-                <>
-                    <Navbar />
-                    {children}
+                <div className="main-screen">
+                    <div>
+                        <Navbar />
+                        {children}
+                    </div>
+
                     <Footer />
-                </>
+                </div>
             ) : (
                 children
             )}

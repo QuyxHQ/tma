@@ -111,3 +111,15 @@ type NftItem = {
     include_cnft?: boolean;
     trust: 'whitelist' | 'graylist' | 'blacklist' | 'none';
 };
+
+type DID = `did:key:${string}`;
+
+type CredentialProps = {
+    credentialSubject: { id: DID; address: string; [key: string]: string };
+    issuer: { id: DID };
+    type: string[];
+    '@context': ['https://www.w3.org/2018/credentials/v1'];
+    issuanceDate: string;
+    expirationDate?: string;
+    proof: { type: 'JwtProof2020'; jwt: string };
+};

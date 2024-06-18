@@ -74,9 +74,8 @@ export default class IdentitySdk {
             .get(`/identity/user?page=${page}&limit=${limit}&revalidate=${revalidate}`);
 
         if (error) return undefined;
-        console.log(data);
-        const { total, data: credentials } = data.data;
 
-        return { total, credentials };
+        const { total, data: credentials } = data.data;
+        return { total, credentials } as { total: number; credentials: any[] };
     }
 }
