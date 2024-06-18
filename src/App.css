@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #fff;
+    background-color: #eeeeee95;
     color: #000;
 }
 
@@ -47,12 +47,12 @@ button:disabled {
 
 .main-btn {
     width: 100%;
-    padding: 1.25rem 0.7rem;
+    padding: 1.15rem 0.7rem;
     border-radius: 8px;
     border: none;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     gap: 0.8rem;
-    font-weight: 600;
+    font-weight: 500;
     background-color: dodgerblue;
     color: #fff;
 }
@@ -120,6 +120,17 @@ button:disabled {
     }
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
 .basic-input {
     width: 100%;
     border-radius: 8px;
@@ -129,12 +140,26 @@ button:disabled {
     transition: 0.2s ease-in-out all;
     -webkit-transition: 0.2s ease-in-out all;
     outline: none;
-    background-color: transparent;
+    background-color: #fff;
     color: #000;
+    resize: none;
 }
 
 .basic-input:focus {
     border: 1px solid dodgerblue;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 50%;
+    padding-right: 1.4rem !important;
+    cursor: pointer;
 }
 
 .h-100 {
@@ -406,13 +431,15 @@ a {
 }
 
 .navbar {
-    background-color: #fff;
     padding: 0.8rem 1.6rem;
-    border-bottom: 1px solid #eee;
     position: fixed;
     width: 100%;
     max-width: 30rem;
     z-index: 999;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid #ced5e56c;
 }
 
 .navbar button {
@@ -456,12 +483,26 @@ footer span {
 }
 
 .main-body {
-    padding: 1rem 0.5rem;
+    padding: 4rem 0.5rem;
     padding-top: 7.5rem;
 }
 
-.main-body h1 {
-    font-size: 1.8rem;
+.main-body .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.main-body .title p {
+    font-size: 0.88rem;
+    text-transform: lowercase;
+    opacity: 0.4;
+    font-weight: 300;
+}
+
+.main-body .title h1 {
+    font-size: 1.7rem;
     font-weight: 600;
 }
 
@@ -473,6 +514,7 @@ footer span {
     gap: 1.4rem;
     border-radius: 10px;
     position: relative;
+    background-color: #fff;
 }
 
 svg {
@@ -560,4 +602,35 @@ svg {
     padding: 0.2rem 0.15rem;
     font-size: 0.9rem;
     width: max-content;
+}
+
+.image-form {
+    width: max-content;
+}
+
+.image-form img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+}
+
+.image-form .position-absolute {
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: #ffff;
+    border: 2px solid #eee;
+    color: #000;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.image-form .position-absolute svg {
+    stroke-width: 2px;
 }

@@ -1,14 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useApi from '../../hooks/useApi';
-import { AnchorLink, Credential } from '../../components';
+import { AnchorLink, Credential, Loader } from '../../components';
 import { Box } from '../../icons';
+import { useLocation } from 'react-router-dom';
 
 const Dashboard: React.FC<{}> = () => {
+    const { state } = useLocation();
+
+    const should_refresh = state && state.should_refresh ? state.should_refresh : false;
+
     const page = 1;
     const limit = 20;
 
-    const { isPending, data } = useQuery({
+    const { isPending, data, isRefetching } = useQuery({
         queryKey: ['credentials'],
         queryFn: async function () {
             const { identity } = await useApi();
@@ -21,7 +26,16 @@ const Dashboard: React.FC<{}> = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12 mb-4">
-                        <h1 className="mb-2">Credentials</h1>
+                        <div className="title">
+                            <h1>Credentials</h1>
+                            <p>Manage your credentials in one place</p>
+
+                            {isRefetching && should_refresh ? (
+                                <div className="pt-2">
+                                    <Loader />
+                                </div>
+                            ) : null}
+                        </div>
                     </div>
                 </div>
 
@@ -33,7 +47,8 @@ const Dashboard: React.FC<{}> = () => {
                                     className="d-flex align-items-center justify-content-center"
                                     style={{ height: '40dvh' }}
                                 >
-                                    <span className="loader" />
+                                    {/* <span className="loader" /> */}
+                                    <Loader />
                                 </div>
                             </div>
                         ) : data.credentials.length == 0 ? (

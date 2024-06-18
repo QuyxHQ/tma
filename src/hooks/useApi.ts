@@ -1,6 +1,7 @@
 import ApiClient from '../shared/api/api.client';
 import AuthSdk from '../shared/api/auth';
 import IdentitySdk from '../shared/api/identity';
+import MiscSdk from '../shared/api/misc';
 import UserSdk from '../shared/api/user';
 import env from '../shared/env';
 
@@ -23,6 +24,12 @@ export default async function (props?: { access_token: string; refresh_token: st
     const authSdk = new AuthSdk(client);
     const identitySdk = new IdentitySdk(client);
     const userSdk = new UserSdk(client);
+    const miscSdk = new MiscSdk(client);
 
-    return { auth: authSdk, identity: identitySdk, user: userSdk };
+    return {
+        auth: authSdk,
+        identity: identitySdk,
+        user: userSdk,
+        misc: miscSdk,
+    };
 }
