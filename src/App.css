@@ -406,7 +406,7 @@ a {
     z-index: 999;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid #ced5e56c;
 }
 
@@ -465,7 +465,7 @@ footer span {
 .main-body .title p {
     font-size: 0.88rem;
     text-transform: lowercase;
-    opacity: 0.4;
+    opacity: 0.5;
     font-weight: 300;
 }
 

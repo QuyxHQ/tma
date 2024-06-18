@@ -86,7 +86,7 @@ const Welcome: React.FC<{}> = () => {
         const { auth } = await useApi();
 
         const response = await auth.signIn(tg.webApp.initData);
-        if (response == false) {
+        if (response == null) {
             // no user found to have linked this tg account
             // open modal & give user a walkthrough
             setTitle('Heads up!');
