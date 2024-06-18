@@ -15,6 +15,7 @@ const Profile: React.FC<{}> = () => {
 
     async function signout() {
         if (isLoading) return;
+        if (!confirm('Are you sure you want to signout?')) return;
         setIsLoading(true);
 
         const { auth } = await useApi();
@@ -25,6 +26,7 @@ const Profile: React.FC<{}> = () => {
 
     async function unlinkTGAcount() {
         if (isLoading) return;
+        if (!confirm('Are you sure you want to unlink this telegram account?')) return;
         setIsLoading(true);
 
         const { user } = await useApi();
