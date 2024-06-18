@@ -32,7 +32,7 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
                 }
 
                 if (user) {
-                    // if (!user.tg || user.tg.id == null) return await logout();
+                    if (!user.tg || user.tg.id == null) return await logout();
                     if (location.pathname == '/get-started') return navigate('/');
                 }
             }
