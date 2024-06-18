@@ -112,7 +112,7 @@ const Welcome: React.FC<{}> = () => {
     return (
         <div className="welcome-screen position-relative pt-5">
             <div className="h-100 px-3">
-                <FullLogo size={33} />
+                <FullLogo />
 
                 <div>
                     <div className="content">
