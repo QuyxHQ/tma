@@ -8,7 +8,7 @@ const Node: React.FC<IconProps> = ({ size = 24, className, fill, handleClick }) 
             xmlns="http://www.w3.org/2000/svg"
             stroke={fill || 'currentColor'}
             className={className}
-            strokeWidth="0.15"
+            strokeWidth="0.05"
             viewBox="0 0 24 24"
             onClick={handleClick}
         >

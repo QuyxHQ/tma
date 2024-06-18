@@ -1,3 +1,4 @@
+import toast from '../../toast';
 import ApiClient from '../api.client';
 
 export default class UserSdk {
@@ -14,5 +15,20 @@ export default class UserSdk {
             .get(`/user/nfts/${address}?page=${page}&limit=${limit}`);
 
         return (data?.data as { nft: NftItem; user: User | null; isBookmarked: boolean }[]) ?? [];
+    }
+
+    async unlinkTGAccount() {
+        const { data, error } = await this.client.getInstance().delete('/user/telegram');
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: data.error || 'Could not unlink telegram account',
+            });
+
+            return false;
+        }
+
+        return true;
     }
 }

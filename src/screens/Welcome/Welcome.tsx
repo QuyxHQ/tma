@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FullLogo, HandShake, Node, Play, Shield } from '../../icons';
-import { CustomMainButton, GradientGlow } from '../../components';
+import { CustomMainButton } from '../../components';
 import useTelegram from '../../hooks/useTelegram';
 import useApi from '../../hooks/useApi';
 import useApp from '../../hooks/useApp';
@@ -20,10 +20,8 @@ const Instructions = () => {
             <ul>
                 <li>
                     Proceed to&nbsp;
-                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>quyx.xyz</a>
-                </li>
-                <li>
-                    Connect to the service using your preferred TON wallet&nbsp;
+                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>quyx.xyz.</a> Connect
+                    to the service using your preferred TON wallet&nbsp;
                     <strong>e.g. TonKeeper</strong>
                 </li>
                 <li>
@@ -65,8 +63,8 @@ const Welcome: React.FC<{}> = () => {
 
     const slider = [
         {
-            icon: <Node size={140} />,
-            title: 'Decentralized Identities',
+            icon: <Node size={100} />,
+            title: 'Decentralization',
             description: `Embrace the future of digital identities with our decentralized solution. Secure, self-sovereign, and privacy-focused.`,
         },
         {
@@ -75,7 +73,7 @@ const Welcome: React.FC<{}> = () => {
             description: `Empower your digital credentials with verifiable, tamper-proof, and decentralized verification mechanisms.`,
         },
         {
-            icon: <HandShake size={150} />,
+            icon: <HandShake size={120} />,
             title: 'Trusted Interactions',
             description: `Foster trust in your online interactions with decentralized identities and verifiable credentials.`,
         },
@@ -88,7 +86,7 @@ const Welcome: React.FC<{}> = () => {
         const { auth } = await useApi();
 
         const response = await auth.signIn(tg.webApp.initData);
-        if (response == null) {
+        if (response == false) {
             // no user found to have linked this tg account
             // open modal & give user a walkthrough
             setTitle('Heads up!');
@@ -112,15 +110,13 @@ const Welcome: React.FC<{}> = () => {
     }
 
     return (
-        <div className="welcome-screen position-relative">
-            <GradientGlow />
-
+        <div className="welcome-screen position-relative pt-5">
             <div className="h-100 px-3">
-                <FullLogo />
+                <FullLogo size={33} />
 
                 <div>
                     <div className="content">
-                        {slider[currentIndex].icon}
+                        <div className="py-2">{slider[currentIndex].icon}</div>
 
                         <h2>{slider[currentIndex].title}</h2>
                         <p>{slider[currentIndex].description}</p>

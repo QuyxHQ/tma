@@ -11,3 +11,4 @@ export { default as Factory } from './all/Factory';
 export { default as Check } from './all/Check';
 export { default as Box } from './all/Box';
 export { default as Camera } from './all/Camera';
+export { default as Logo } from './all/Logo';
