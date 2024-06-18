@@ -7,3 +7,4 @@ export { default as Navbar } from './Navbar';
 export { default as Footer } from './Footer';
 export { default as AnchorLink } from './AnchorLink';
 export { default as Credential } from './Credential';
+export { default as ParseJSON } from './ParseJSON';

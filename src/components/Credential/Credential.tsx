@@ -1,9 +1,8 @@
 import React from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import ReactJson from 'react-json-view';
 import { omit } from 'lodash';
 import { Check, Clock, Factory, User } from '../../icons';
-import { AnchorLink } from '..';
+import { AnchorLink, ParseJSON } from '..';
 
 const Credential: React.FC<{ data: CredentialProps; index: number }> = ({ data, index }) => {
     return !data ? null : (
@@ -20,15 +19,7 @@ const Credential: React.FC<{ data: CredentialProps; index: number }> = ({ data, 
             </AnchorLink>
 
             <div className="json">
-                <ReactJson
-                    src={omit(data.credentialSubject, ['id', 'address'])}
-                    name={null}
-                    indentWidth={5}
-                    enableClipboard={false}
-                    displayObjectSize={false}
-                    displayDataTypes={false}
-                    collapsed={true}
-                />
+                <ParseJSON data={omit(data.credentialSubject, ['id', 'address'])} />
             </div>
 
             <AnchorLink to={`/credential/${data.proof.jwt}`}>
