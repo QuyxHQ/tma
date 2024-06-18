@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Box: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) => {
+const Wallet: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -16,9 +16,10 @@ const Box: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) =
             viewBox="0 0 24 24"
         >
             <path stroke="none" d="M0 0h24v24H0z"></path>
-            <path d="M13 20l7-7M13 20v-6a1 1 0 011-1h6V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h7"></path>
+            <path d="M17 8V5a1 1 0 00-1-1H6a2 2 0 000 4h12a1 1 0 011 1v3m0 4v3a1 1 0 01-1 1H6a2 2 0 01-2-2V6"></path>
+            <path d="M20 12v4h-4a2 2 0 010-4h4"></path>
         </svg>
     );
 };
 
-export default Box;
+export default Wallet;

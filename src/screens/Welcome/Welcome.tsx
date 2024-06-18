@@ -26,10 +26,7 @@ const Instructions = () => {
                 </li>
                 <li>
                     Head over to&nbsp;
-                    <a
-                        onClick={() => tg.webApp.openLink('https://quyx.xyz/edit-profile')}
-                        href="https://quyx.xyz/edit-profile"
-                    >
+                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz/edit-profile')}>
                         quyx.xyz/edit-profile
                     </a>
                 </li>

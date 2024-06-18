@@ -78,4 +78,13 @@ export default class IdentitySdk {
         const { total, data: credentials } = data.data;
         return { total, credentials } as { total: number; credentials: any[] };
     }
+
+    async getCredentialFromHash(hash: string, revalidate: 'yes' | 'no' = 'no') {
+        const { error, data } = await this.client
+            .getInstance()
+            .get(`/identity/${hash}?revalidate=${revalidate}`);
+
+        if (error) return undefined;
+        return data.data as SingleCredentialData;
+    }
 }

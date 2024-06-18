@@ -25,6 +25,12 @@ type User = Base & {
     }[];
 };
 
+type Space = {
+    name: string;
+    url: string;
+    did: DID;
+};
+
 type Base = {
     readonly _id: string;
     createdAt: string;
@@ -113,6 +119,14 @@ type NftItem = {
 };
 
 type DID = `did:key:${string}`;
+
+type SingleCredentialData = {
+    subject: DID;
+    jwt: string;
+    revoked: boolean;
+    spaces: Space[];
+    credential: CredentialProps;
+};
 
 type CredentialProps = {
     credentialSubject: { id: DID; address: string; [key: string]: string };

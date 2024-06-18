@@ -20,4 +20,9 @@ export default class MiscSdk {
 
         return (data?.data.uri as string) ?? undefined;
     }
+
+    async getSpaceFromDIDs(spaces: DID[]) {
+        const { data } = await this.client.getInstance().post('/space/spaces', { spaces: spaces });
+        return (data.data as Space[]) ?? [];
+    }
 }

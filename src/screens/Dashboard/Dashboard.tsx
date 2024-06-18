@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useApi from '../../hooks/useApi';
-import { AnchorLink, Credential, Loader } from '../../components';
+import { AnchorLink, Credential, CredentialLoader, Loader } from '../../components';
 import { Box } from '../../icons';
 import { useLocation } from 'react-router-dom';
 
@@ -43,24 +43,19 @@ const Dashboard: React.FC<{}> = () => {
                     <div className="row g-4">
                         {isPending || !data ? (
                             <div className="col-12">
-                                <div
-                                    className="d-flex align-items-center justify-content-center"
-                                    style={{ height: '40dvh' }}
-                                >
-                                    {/* <span className="loader" /> */}
-                                    <Loader />
+                                <div className="credential-loader pt-2">
+                                    {Array.from({ length: 4 }).map((_, i) => (
+                                        <CredentialLoader key={`credential-loader-${i}`} />
+                                    ))}
                                 </div>
                             </div>
                         ) : data.credentials.length == 0 ? (
                             <div className="col-12">
                                 <div className="empty">
-                                    <Box size={70} />
+                                    <Box size={60} />
 
                                     <p>Oops! no credentials yet</p>
-
-                                    <AnchorLink to="/create-credential">
-                                        Create one &raquo;
-                                    </AnchorLink>
+                                    <AnchorLink to="/create-credential">Create one</AnchorLink>
                                 </div>
                             </div>
                         ) : (

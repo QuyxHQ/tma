@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useApp from '../../hooks/useApp';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Footer, Loader, Navbar } from '..';
+import { Loader, Navbar } from '..';
 import { Logo } from '../../icons';
 
 const LoadingScreen = () => {
@@ -32,7 +32,7 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
                 }
 
                 if (user) {
-                    if (!user.tg || user.tg.id == null) return await logout();
+                    // if (!user.tg || user.tg.id == null) return await logout();
                     if (location.pathname == '/get-started') return navigate('/');
                 }
             }
@@ -51,10 +51,8 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
                         <Navbar />
                         {children}
                     </div>
-
-                    <Footer />
                 </div>
-            ) : (
+            ) : !user && location.pathname !== '/get-started' ? null : (
                 children
             )}
         </main>

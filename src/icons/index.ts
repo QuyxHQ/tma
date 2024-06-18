@@ -12,3 +12,8 @@ export { default as Check } from './all/Check';
 export { default as Box } from './all/Box';
 export { default as Camera } from './all/Camera';
 export { default as Logo } from './all/Logo';
+export { default as Wallet } from './all/Wallet';
+export { default as Badge } from './all/Badge';
+export { default as Power } from './all/Power';
+export { default as Unlink } from './all/Unlink';
+export { default as Trash } from './all/Trash';

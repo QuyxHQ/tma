@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #eeeeee95;
+    background-color: #fafafa;
     color: #000;
 }
 
@@ -433,23 +433,6 @@ a {
     background-color: #eee;
 }
 
-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: center;
-    padding: 2.5rem 0;
-    font-size: 0.9rem;
-}
-
-footer p {
-    opacity: 0.5;
-}
-
-footer span {
-    font-weight: 500;
-}
-
 .main-body {
     padding: 4rem 0.5rem;
     padding-top: 7.5rem;
@@ -549,19 +532,21 @@ svg {
 .empty {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
-    padding: 4rem 0;
+    gap: 0.5rem;
+    padding: 8rem 0;
+    align-items: center;
 }
 
 .empty svg {
-    stroke-width: 0.8px;
+    stroke-width: 1px;
+    opacity: 0.4;
     margin-bottom: 0.6rem;
-    opacity: 0.3;
 }
 
 .empty p {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.35;
 }
 
 .empty a {
@@ -601,4 +586,336 @@ svg {
 
 .image-form .position-absolute svg {
     stroke-width: 2px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.profile ul {
+    list-style-type: none;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+    border-radius: 10px;
+    border: 1px solid #dddddda1;
+}
+
+.profile ul li {
+    border-bottom: 1px solid #eee;
+    padding: 0.4rem;
+}
+
+.profile ul li:last-child {
+    border-bottom: none;
+}
+
+.profile ul li a {
+    cursor: pointer;
+    padding: 0.95rem 1.2rem;
+    transition: 0.3s ease-in-out all;
+}
+
+.profile ul li a:hover {
+    background-color: #eeeeeeac;
+    border-radius: 6px;
+}
+
+.profile ul li a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.profile ul li a svg {
+    stroke-width: 1.5px;
+    width: 23px;
+    height: 23px;
+}
+
+.profile ul li a span {
+    width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.single-credential {
+    margin-top: -1rem;
+}
+
+.single-credential .top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.single-credential .top button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.15rem 1rem;
+    padding-right: 1.3rem;
+    border-radius: 100px;
+    border: none;
+    background-color: #fff;
+    border: 1px solid crimson;
+    color: crimson;
+    gap: 0.6rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.single-credential .top img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 0.7rem;
+}
+
+.single-credential .top h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.single-credential .top p {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    line-height: 165%;
+}
+
+.single-credential .tab {
+    background-color: #eeeeee87;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+
+.single-credential .tab p {
+    width: 100%;
+    text-align: center;
+    border-radius: 100px;
+    padding: 0.95rem 0.2rem;
+    font-size: 0.85rem;
+    border: 1px solid transparent;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: 0.2s ease-in-out all;
+}
+
+.single-credential .tab p.active {
+    font-weight: 500;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.spaces {
+    padding: 0.3rem 0;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.space > div {
+    gap: 0.8rem;
+}
+
+.space {
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.space:hover {
+    background-color: #eee;
+}
+
+.space .avatar {
+    width: 3rem;
+    height: 3rem;
+    background-color: palegoldenrod;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 500;
+}
+
+.space .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 100%;
+}
+
+.space .info h4 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 150%;
+}
+
+.space .info p {
+    font-size: 0.8rem;
+    opacity: 0.35;
+    font-weight: 300;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.space button {
+    cursor: pointer;
+    background-color: crimson;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 100px;
+}
+
+.single-credential .metadata {
+    padding: 0rem 0;
+}
+
+.single-credential .metadata .json {
+    background-color: #eeeeeea2;
+    overflow: scroll;
+    white-space: nowrap;
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.single-credential .metadata p {
+    font-size: 0.95rem;
+    line-height: 210%;
+    color: #888;
+    margin-bottom: 2rem;
+}
+
+.single-credential .metadata p strong {
+    font-weight: 500;
+    color: #000;
+}
+
+.single-credential .no-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.single-credential .no-data svg {
+    stroke-width: 0.8px;
+}
+
+.single-credential .no-data p {
+    font-size: 0.88rem;
+    width: 100%;
+    max-width: 15rem;
+    text-align: center;
+    line-height: 165%;
+    opacity: 0.5;
+}
+
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 90%);
+    }
+    100% {
+        background-color: hsl(200, 20%, 93%);
+    }
+}
+
+.single-credential-loader .image {
+    width: 100%;
+    height: 18rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.single-credential-loader p.skeleton {
+    width: 90%;
+    height: 1.25rem;
+    border-radius: 100px;
+}
+
+.single-credential-loader > p {
+    margin-bottom: 1.7rem;
+}
+
+.single-credential-loader div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.single-credential-loader div p:nth-child(1) {
+    width: 60%;
+}
+
+.single-credential-loader div p:nth-child(2) {
+    width: 75%;
+}
+
+.single-credential-loader div p:nth-child(3) {
+    width: 35%;
+}
+
+.credential-loader {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.credential-loader p.skeleton {
+    width: 90%;
+    height: 1.25rem;
+    border-radius: 100px;
+}
+
+.credential-loader > div > p {
+    margin-bottom: 1rem;
+}
+
+.credential-loader > div .json {
+    width: 100%;
+    height: 6rem;
+    border-radius: 10px;
+    margin-bottom: 1.4rem;
+}
+
+.credential-loader > div .info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.credential-loader > div .info p:nth-child(1) {
+    width: 60%;
+}
+
+.credential-lodaer > div .info p:nth-child(2) {
+    width: 45%;
 }

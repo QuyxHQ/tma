@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useTelegram from '../../hooks/useTelegram';
 
 type AnchorLinkProps = {
@@ -13,9 +13,10 @@ type AnchorLinkProps = {
 
 const AnchorLink: React.FC<AnchorLinkProps> = (props: AnchorLinkProps) => {
     const tg = useTelegram();
+    const location = useLocation();
 
     function click() {
-        tg.webApp.BackButton.show();
+        if (location.pathname != props.to) tg.webApp.BackButton.show();
         if (props.handleClick) props.handleClick();
     }
 
