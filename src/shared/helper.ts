@@ -32,3 +32,7 @@ export function getHumanReadableDateTIme(date: string) {
         locale: enUS,
     });
 }
+
+export function isHex(str: string) {
+    return /^[0-9A-Fa-f]+$/.test(str);
+}

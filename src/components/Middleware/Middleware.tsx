@@ -28,12 +28,14 @@ const Middleware: React.FC<{ children: React.JSX.Element }> = ({ children }) => 
         (async function () {
             if (!isMounting) {
                 if (!isAuthenticated && location.pathname != '/get-started') {
-                    return navigate('/get-started');
+                    return navigate('/get-started', { replace: true });
                 }
 
                 if (user) {
                     if (!user.tg || user.tg.id == null) return await logout();
-                    if (location.pathname == '/get-started') return navigate('/');
+                    if (location.pathname == '/get-started') {
+                        return navigate('/', { replace: true });
+                    }
                 }
             }
 

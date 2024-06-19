@@ -100,7 +100,7 @@ const Welcome: React.FC<{}> = () => {
                 access_token: response.accessToken,
             });
 
-            navigate('/');
+            navigate('/', { replace: true });
         }
 
         setIsLoading(false);

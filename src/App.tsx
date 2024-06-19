@@ -12,22 +12,19 @@ import {
     SingleCredential,
     Welcome,
 } from './screens';
+import useHistory from './hooks/useHistory';
 
 const App: React.FC<{}> = () => {
     const tg = useTelegram();
     const navigate = useNavigate();
+    const history = useHistory();
 
     const onBackClick = useCallback(() => navigate(-1), [navigate]);
 
     useEffect(() => {
-        const handleHistoryChange = () => {
-            if (window.history.length === 1) tg.webApp.BackButton.hide();
-            else tg.webApp.BackButton.show();
-        };
-
-        window.addEventListener('popstate', handleHistoryChange);
-        return () => window.removeEventListener('popstate', handleHistoryChange);
-    }, []);
+        if (history) tg.webApp.BackButton.show();
+        else tg.webApp.BackButton.hide();
+    }, [history]);
 
     useEffect(() => {
         (async function () {

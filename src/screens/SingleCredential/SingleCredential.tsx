@@ -11,7 +11,7 @@ import {
     SingleCredentialLoader,
     Space,
 } from '../../components';
-import { getHumanReadableDateTIme } from '../../shared/helper';
+import { getHumanReadableDateTIme, isHex } from '../../shared/helper';
 import useTelegram from '../../hooks/useTelegram';
 
 const SingleCredential: React.FC<{}> = () => {
@@ -24,15 +24,18 @@ const SingleCredential: React.FC<{}> = () => {
     const { isPending, data } = useQuery({
         queryKey: [jwt],
         queryFn: async function () {
-            const [{ identity, misc }, hash] = await Promise.all([useApi(), sha256(jwt)]);
+            const { misc, identity } = await useApi();
 
-            const data = await identity.getCredentialFromHash(hash.toString('hex'));
+            let hash = jwt;
+            if (!isHex(hash!)) hash = (await sha256(jwt)).toString('hex');
+
+            const data = await identity.getCredentialFromHash(hash!);
             if (data && data.spaces.length > 0 && typeof data.spaces[0] == 'string') {
                 const spaces = await misc.getSpaceFromDIDs(data.spaces as any);
                 data.spaces = spaces;
             }
 
-            if (!data) navigate('/');
+            if (!data) navigate('/', { replace: true });
             return data || null;
         },
     });
