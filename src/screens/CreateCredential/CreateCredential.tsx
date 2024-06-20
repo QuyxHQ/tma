@@ -123,8 +123,6 @@ const CreateCredential: React.FC<{}> = () => {
                                         --select a username--
                                     </option>
 
-                                    <option value="morifeoluwa">morifeoluwa</option>
-
                                     {username?.map((username) => (
                                         <option value={username} key={username}>
                                             {username}
