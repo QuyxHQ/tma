@@ -75,8 +75,7 @@ export default class IdentitySdk {
 
         if (error) return undefined;
 
-        const { total, data: credentials } = data.data;
-        return { total, credentials } as { total: number; credentials: any[] };
+        return data.data.data as any[];
     }
 
     async getCredentialFromHash(hash: string, revalidate: 'yes' | 'no' = 'no') {

@@ -886,7 +886,7 @@ svg {
 .credential-loader {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 3.5rem;
 }
 
 .credential-loader p.skeleton {

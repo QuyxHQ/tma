@@ -17,6 +17,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hot-toast": "^2.4.1",
+        "react-intersection-observer": "^9.10.3",
         "react-router-dom": "^6.23.1",
         "react18-json-view": "^0.2.8",
         "ton-core": "^0.53.0",

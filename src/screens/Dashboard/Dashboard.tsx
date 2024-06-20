@@ -1,24 +1,33 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useApi from '../../hooks/useApi';
 import { AnchorLink, Credential, CredentialLoader, Loader } from '../../components';
 import { Box } from '../../icons';
 import { useLocation } from 'react-router-dom';
+import useCustomQuery from '../../hooks/useCustomQuery';
 
 const Dashboard: React.FC<{}> = () => {
     const { state } = useLocation();
 
     const should_refresh = state && state.should_refresh ? state.should_refresh : false;
 
-    const page = 1;
-    const limit = 20;
-
-    const { isPending, data, isRefetching } = useQuery({
-        queryKey: ['credentials'],
-        queryFn: async function () {
+    const { data, ref, isFetchingNextPage, status, isRefetching } = useCustomQuery({
+        key: 'credentials',
+        fn: async function ({ pageParam }) {
             const { identity } = await useApi();
-            return await identity.getCredentials(page, limit);
+            return (await identity.getCredentials(pageParam)) ?? [];
         },
+    });
+
+    const content = data?.pages.map(function (credentials) {
+        return credentials.map((credential, i) => (
+            <div
+                ref={credentials.length == i + 1 ? ref : undefined}
+                className="col-12"
+                key={`credential-${i}`}
+            >
+                <Credential data={credential.credential} index={i + 1} />
+            </div>
+        ));
     });
 
     return (
@@ -41,7 +50,7 @@ const Dashboard: React.FC<{}> = () => {
 
                 <div className="col-12">
                     <div className="row g-4">
-                        {isPending || !data ? (
+                        {status == 'pending' ? (
                             <div className="col-12">
                                 <div className="credential-loader pt-2">
                                     {Array.from({ length: 4 }).map((_, i) => (
@@ -49,7 +58,7 @@ const Dashboard: React.FC<{}> = () => {
                                     ))}
                                 </div>
                             </div>
-                        ) : data.credentials.length == 0 ? (
+                        ) : !content || content[0].length == 0 ? (
                             <div className="col-12">
                                 <div className="empty">
                                     <Box size={60} />
@@ -59,13 +68,17 @@ const Dashboard: React.FC<{}> = () => {
                                 </div>
                             </div>
                         ) : (
-                            data.credentials.map((credential, i) =>
-                                credential ? (
-                                    <div className="col-12" key={`credential-${i}`}>
-                                        <Credential data={credential.credential} index={i + 1} />
+                            <>
+                                {content}
+
+                                {isFetchingNextPage ? (
+                                    <div className="col-12">
+                                        <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
+                                            <Loader size={21} />
+                                        </div>
                                     </div>
-                                ) : null
-                            )
+                                ) : null}
+                            </>
                         )}
                     </div>
                 </div>
