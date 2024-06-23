@@ -1,6 +1,4 @@
-import React from "react";
-
-function Icon:React.FC<{}>() {
+function Icon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
