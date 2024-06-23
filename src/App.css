@@ -64,7 +64,7 @@ button:disabled {
     margin: 0% auto;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 99999;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     display: flex;
@@ -918,4 +918,68 @@ svg {
 
 .credential-lodaer > div .info p:nth-child(2) {
     width: 45%;
+}
+
+
+ .tab {
+    background-color: #eeeeee87;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+
+.tab p {
+    width: 100%;
+    text-align: center;
+    border-radius: 100px;
+    padding: 0.95rem 0.2rem;
+    font-size: 0.85rem;
+    border: 1px solid transparent;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: 0.2s ease-in-out all;
+}
+
+.tab p.active {
+    font-weight: 500;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.custom-Info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.group-custom{
+    line-height: 3;
+}
+
+.custom-Info p{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.custom-Info span{
+    font-size: 16px;
+    font-weight: 400;
+}
+ .icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+}
+
+
+.group_button{
+    padding: 0;
+}
+
+.addbutton{
+    margin-top: 2rem;
 }
