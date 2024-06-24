@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <TonConnectUIProvider manifestUrl="https://quyx.xyz/manifest/tonconnect.json">
+            <TonConnectUIProvider manifestUrl="https://tma.quyx.xyz/manifest/tonconnect.json">
                 <ModalProvider>
                     <AppProvider>
                         <BrowserRouter>
