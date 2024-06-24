@@ -401,7 +401,6 @@ a {
 .navbar {
     padding: 0.8rem 1.6rem;
     position: fixed;
-    top: 0;
     width: 100%;
     max-width: 30rem;
     z-index: 999;
