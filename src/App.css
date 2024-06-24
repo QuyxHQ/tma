@@ -949,37 +949,87 @@ svg {
     background-color: #fff;
 }
 
-.custom-Info{
+.custom-Info {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap */
+    align-items: center; /* Align items at the top */
     justify-content: space-between;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
 
-.group-custom{
-    line-height: 3;
+.Group {
+    line-height: 1;
 }
 
-.custom-Info p{
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.custom-Info span{
+.Group p {
+    margin: 0;
+    flex: 1;
+    white-space: nowrap;
+    font-weight: 500;
     font-size: 16px;
-    font-weight: 400;
+    margin-left: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
 }
- .icons{
+
+.custom-Info-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-Info span {
+    font-size: 14px;
+    font-weight: 400;
+    flex:1;
+    word-wrap: break-word;
+    margin: 0;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.icons {
+    display: flex;
+    gap: 1.5rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.group-custom {
+    line-height: 1.5;
+}
+
+.group_button {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.addbutton {
+    margin-top: 2rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap:1rem;
+    background-color: #1e90ff;
+    color: #fff;
+    border: 0;
+    outline: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.addbutton:hover {
+    background-color: #1a78d4;
 }
 
 
-.group_button{
-    padding: 0;
-}
-
-.addbutton{
-    margin-top: 2rem;
+.error-message{
+    color:red;
+    font-size: 12px;
+    margin-left: 12px;
 }
