@@ -1,62 +1,32 @@
-import React, { useState } from 'react';
-import { FullLogo, HandShake, Node, Play, Shield } from '../../icons';
+import React, { useEffect, useState } from 'react';
+import { THEME, useTonConnectModal, useTonConnectUI } from '@tonconnect/ui-react';
+import { FullLogo, HandShake, Node, Shield, TON } from '../../icons';
 import { CustomMainButton } from '../../components';
-import useTelegram from '../../hooks/useTelegram';
 import useApi from '../../hooks/useApi';
 import useApp from '../../hooks/useApp';
-import { useNavigate } from 'react-router-dom';
-import useModal from '../../hooks/useModal';
-
-const Instructions = () => {
-    const tg = useTelegram();
-
-    return (
-        <div className="instructions">
-            <p>
-                Hi 👋, good one on trying to use our telegram mini app. But inorder to get started,
-                you need to complete the following steps:-
-            </p>
-
-            <ul>
-                <li>
-                    Proceed to&nbsp;
-                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>quyx.xyz.</a> Connect
-                    to the service using your preferred TON wallet&nbsp;
-                    <strong>e.g. TonKeeper</strong>
-                </li>
-                <li>
-                    Head over to&nbsp;
-                    <a onClick={() => tg.webApp.openLink('https://quyx.xyz/edit-profile')}>
-                        quyx.xyz/edit-profile
-                    </a>
-                </li>
-                <li>
-                    Link this telegram account with the help of the&nbsp;
-                    <strong>"Login with Telegram"</strong> button on the page
-                </li>
-            </ul>
-
-            <div>
-                <button onClick={() => tg.webApp.openLink('https://quyx.xyz')}>
-                    Proceed to quyx.xyz
-                </button>
-
-                <a onClick={() => tg.webApp.openLink('https://quyx.xyz')}>
-                    <span>Watch Explainer Video</span>
-                    <Play size={18} />
-                </a>
-            </div>
-        </div>
-    );
-};
+import useTonConnect from '../../hooks/useTonConnect';
+import env from '../../shared/env';
 
 const Welcome: React.FC<{}> = () => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const tg = useTelegram();
+
     const { getUser } = useApp();
-    const navigate = useNavigate();
-    const { openModal, setModalBody, setTitle } = useModal();
+    const { open } = useTonConnectModal();
+    const { connected } = useTonConnect();
+    const [tonConnectUI] = useTonConnectUI();
+
+    async function connect() {
+        if (connected) {
+            await Promise.all([
+                tonConnectUI.disconnect(),
+                env.storage.removeItem('access_token'),
+                env.storage.removeItem('refresh_token'),
+            ]);
+        }
+
+        open();
+    }
 
     const slider = [
         {
@@ -76,40 +46,61 @@ const Welcome: React.FC<{}> = () => {
         },
     ];
 
-    async function signin() {
-        if (isLoading) return;
-        setIsLoading(true);
+    useEffect(() => {
+        tonConnectUI.uiOptions = {
+            uiPreferences: {
+                theme: THEME.LIGHT,
+            },
+        };
 
-        const { auth } = await useApi();
+        tonConnectUI.setConnectRequestParameters({
+            state: 'loading',
+        });
 
-        const response = await auth.signIn(tg.webApp.initData);
-        if (response == null) {
-            // no user found to have linked this tg account
-            // open modal & give user a walkthrough
-            setTitle('Heads up!');
-            setModalBody(<Instructions />);
-            openModal();
+        (async function () {
+            const { auth } = await useApi();
 
-            return setIsLoading(false);
-        }
+            const token = await auth.getProofPayload();
+            if (!token) {
+                tonConnectUI.setConnectRequestParameters(null);
+            } else {
+                tonConnectUI.setConnectRequestParameters({
+                    state: 'ready',
+                    value: {
+                        tonProof: token,
+                    },
+                });
+            }
+        })();
 
-        if (response) {
-            // help populate the user info field
-            await getUser({
-                refresh_token: response.refreshToken,
-                access_token: response.accessToken,
-            });
+        tonConnectUI.onStatusChange(async (wallet) => {
+            const { auth } = await useApi();
 
-            navigate('/', { replace: true });
-        }
+            if (
+                wallet &&
+                wallet.connectItems?.tonProof &&
+                'proof' in wallet.connectItems.tonProof
+            ) {
+                setIsLoading(true);
 
-        setIsLoading(false);
-    }
+                const authTokens = await auth.authenticateWallet(wallet);
+                if (!authTokens) {
+                    await tonConnectUI.disconnect();
+                    return setIsLoading(false);
+                }
+
+                const { accessToken, refreshToken } = authTokens;
+
+                await getUser({ access_token: accessToken, refresh_token: refreshToken });
+                setIsLoading(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="welcome-screen position-relative pt-5">
             <div className="h-100 px-3">
-                <FullLogo />
+                <FullLogo className="mb-3" size={40} />
 
                 <div>
                     <div className="content">
@@ -131,8 +122,9 @@ const Welcome: React.FC<{}> = () => {
                 </div>
             </div>
 
-            <CustomMainButton handleClick={signin} isLoading={isLoading} type="button">
-                Get Started
+            <CustomMainButton handleClick={connect} isLoading={isLoading} type="button">
+                <TON size={20} />
+                Connect wallet
             </CustomMainButton>
         </div>
     );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Loader } from '..';
 import { sha256 } from 'ton-crypto';
 import useApi from '../../hooks/useApi';
+import { isHex } from '../../shared/helper';
 
 const Space: React.FC<{ data: Space; jwt?: string }> = ({ data, jwt }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -12,8 +13,11 @@ const Space: React.FC<{ data: Space; jwt?: string }> = ({ data, jwt }) => {
         if (!confirm('Are you sure you want to revoke site access to this credential?')) return;
         setIsLoading(true);
 
-        const [{ identity }, hash] = await Promise.all([useApi(), sha256(jwt)]);
-        const resp = await identity.revokeAccess(hash.toString('hex'), data.did);
+        let hash = jwt;
+        if (!isHex(hash!)) hash = (await sha256(jwt)).toString('hex');
+
+        const { identity } = await useApi();
+        const resp = await identity.revokeAccess(hash, data.did);
         if (resp) setShouldHide(true);
 
         setIsLoading(false);
@@ -28,19 +32,21 @@ const Space: React.FC<{ data: Space; jwt?: string }> = ({ data, jwt }) => {
 
                 <div className="info">
                     <h4>{data.name}</h4>
-                    <p>{data.url}</p>
+                    <p>{data.did}</p>
                 </div>
             </div>
 
-            <button onClick={revokeAccess} disabled={isLoading}>
-                {isLoading ? (
-                    <div className="px-2">
-                        <Loader size={15} />
-                    </div>
-                ) : (
-                    <span>Revoke</span>
-                )}
-            </button>
+            <div>
+                <button onClick={revokeAccess} disabled={isLoading}>
+                    {isLoading ? (
+                        <div className="px-2">
+                            <Loader size={15} />
+                        </div>
+                    ) : (
+                        <span>Revoke</span>
+                    )}
+                </button>
+            </div>
         </div>
     );
 };

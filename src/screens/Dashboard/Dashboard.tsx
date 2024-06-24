@@ -31,56 +31,54 @@ const Dashboard: React.FC<{}> = () => {
     });
 
     return (
-        <div className="main-body">
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 mb-4">
-                        <div className="title">
-                            <h1>Credentials</h1>
-                            <p>Manage your credentials in one place</p>
+        <div className="container mb-4">
+            <div className="row">
+                <div className="col-12 mb-4">
+                    <div className="title">
+                        <h1>Credentials</h1>
+                        <p>Manage your credentials in one place</p>
 
-                            {isRefetching && should_refresh ? (
-                                <div className="pt-2">
-                                    <Loader />
-                                </div>
-                            ) : null}
-                        </div>
+                        {isRefetching && should_refresh ? (
+                            <div className="pt-2">
+                                <Loader />
+                            </div>
+                        ) : null}
                     </div>
                 </div>
+            </div>
 
-                <div className="col-12">
-                    <div className="row g-4">
-                        {status == 'pending' ? (
-                            <div className="col-12">
-                                <div className="credential-loader pt-2">
-                                    {Array.from({ length: 4 }).map((_, i) => (
-                                        <CredentialLoader key={`credential-loader-${i}`} />
-                                    ))}
-                                </div>
+            <div className="col-12">
+                <div className="row g-4">
+                    {status == 'pending' ? (
+                        <div className="col-12">
+                            <div className="credential-loader pt-2">
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <CredentialLoader key={`credential-loader-${i}`} />
+                                ))}
                             </div>
-                        ) : !content || content[0].length == 0 ? (
-                            <div className="col-12">
-                                <div className="empty">
-                                    <Box size={60} />
+                        </div>
+                    ) : !content || content[0].length == 0 ? (
+                        <div className="col-12">
+                            <div className="empty">
+                                <Box size={60} />
 
-                                    <p>Oops! no credentials yet</p>
-                                    <AnchorLink to="/create-credential">Create one</AnchorLink>
-                                </div>
+                                <p>Oops! no credentials yet</p>
+                                <AnchorLink to="/create-credential">Create one</AnchorLink>
                             </div>
-                        ) : (
-                            <>
-                                {content}
+                        </div>
+                    ) : (
+                        <>
+                            {content}
 
-                                {isFetchingNextPage ? (
-                                    <div className="col-12">
-                                        <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
-                                            <Loader size={21} />
-                                        </div>
+                            {isFetchingNextPage ? (
+                                <div className="col-12">
+                                    <div className="d-flex align-items-center justify-content-center pt-4 pb-0">
+                                        <Loader size={21} />
                                     </div>
-                                ) : null}
-                            </>
-                        )}
-                    </div>
+                                </div>
+                            ) : null}
+                        </>
+                    )}
                 </div>
             </div>
         </div>

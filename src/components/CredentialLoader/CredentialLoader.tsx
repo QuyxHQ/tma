@@ -2,7 +2,7 @@ import React from 'react';
 
 const CredentialLoader: React.FC<{}> = () => {
     return (
-        <div>
+        <div className="creed">
             <p className="skeleton" />
 
             <div className="json skeleton" />

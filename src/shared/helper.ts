@@ -36,3 +36,18 @@ export function getHumanReadableDateTIme(date: string) {
 export function isHex(str: string) {
     return /^[0-9A-Fa-f]+$/.test(str);
 }
+
+export function findImageFromCreeds(obj: Record<string, string>) {
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'];
+
+    for (let key in obj) {
+        if (typeof obj[key] === 'string') {
+            const lowercaseValue = obj[key].toLowerCase();
+            if (imageExtensions.some((ext) => lowercaseValue.endsWith(ext))) {
+                return obj[key];
+            }
+        }
+    }
+
+    return null;
+}

@@ -10,20 +10,61 @@ export default class AuthSdk {
         this.storage = env.storage;
     }
 
-    async signIn(tg_init: string) {
-        const { error, data, statusCode } = await this.client
+    async linkTGAccount(tg_auth: string) {
+        const { error, data } = await this.client
             .getInstance()
-            .post('/auth/telegram', { tg_init });
+            .put('/auth/telegram/callback', { tg_auth });
 
         if (error) {
-            if (statusCode == 422) return null;
-
             toast({
                 type: 'error',
-                message: data.error || 'Unable to complete request',
+                message: data.error || 'Unable to complete authentication',
             });
 
             return false;
+        }
+
+        const { acknowledged, modifiedCount } = data.data;
+
+        if (!acknowledged || modifiedCount == 0) {
+            toast({
+                type: 'error',
+                message: 'Oops! Request was not completed',
+            });
+
+            return false;
+        }
+
+        return true;
+    }
+
+    async getProofPayload() {
+        const { error, data } = await this.client.getInstanceWithoutAuth().get('/auth/token');
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: data.error || 'Unable to generate token',
+            });
+
+            return;
+        }
+
+        return data.data.token as string;
+    }
+
+    async authenticateWallet(walletInfo: any) {
+        const { error, data } = await this.client
+            .getInstanceWithoutAuth()
+            .post('/auth', { walletInfo });
+
+        if (error) {
+            toast({
+                type: 'error',
+                message: data.error || 'Unable to complete authentication',
+            });
+
+            return;
         }
 
         const { accessToken, refreshToken } = data.data;

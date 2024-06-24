@@ -17,3 +17,6 @@ export { default as Badge } from './all/Badge';
 export { default as Power } from './all/Power';
 export { default as Unlink } from './all/Unlink';
 export { default as Trash } from './all/Trash';
+export { default as TON } from './all/TON';
+export { default as Telegram } from './all/Telegram';
+export { default as HourGlass } from './all/HourGlass';
