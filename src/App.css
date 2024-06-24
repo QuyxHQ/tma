@@ -23,7 +23,7 @@ main.app {
     width: 100%;
     max-width: 30rem;
     overflow-x: hidden;
-    min-height: 100dvh;
+    min-height: 100vh;
     margin: 0% auto;
 }
 
