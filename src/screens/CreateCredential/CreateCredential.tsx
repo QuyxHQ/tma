@@ -268,15 +268,16 @@ const CreateCredential: React.FC = () => {
                                                             {item.split('_').join(' ')}
                                                         </h4>
 
-                                                        <p>
-                                                            {customBuiler[item].startsWith(
-                                                                'data:image/'
-                                                            ) ? (
-                                                                <img src={customBuiler[item]} />
-                                                            ) : (
-                                                                customBuiler[item]
-                                                            )}
-                                                        </p>
+                                                        {customBuiler[item].startsWith(
+                                                            'data:image/'
+                                                        ) ? (
+                                                            <img
+                                                                className="mt-2"
+                                                                src={customBuiler[item]}
+                                                            />
+                                                        ) : (
+                                                            <p>{customBuiler[item]}</p>
+                                                        )}
                                                     </div>
 
                                                     <div>
@@ -284,14 +285,14 @@ const CreateCredential: React.FC = () => {
                                                             type="button"
                                                             onClick={() => openEditEntryModal(item)}
                                                         >
-                                                            <Edit />
+                                                            <Edit size={18} />
                                                         </button>
 
                                                         <button
                                                             type="button"
                                                             onClick={() => deleteEntry(item)}
                                                         >
-                                                            <Trash />
+                                                            <Trash size={18} />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -299,8 +300,7 @@ const CreateCredential: React.FC = () => {
                                         </div>
 
                                         <button onClick={openAddCustomEntryModal} type="button">
-                                            <span>Add new entry</span>
-                                            <Plus size={22} />
+                                            <Plus size={24} />
                                         </button>
                                     </div>
                                 )}
