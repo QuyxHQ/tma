@@ -20,3 +20,6 @@ export { default as Trash } from './all/Trash';
 export { default as TON } from './all/TON';
 export { default as Telegram } from './all/Telegram';
 export { default as HourGlass } from './all/HourGlass';
+export { default as Edit } from './all/Edit';
+export { default as MoodPuzzled } from './all/MoodPuzzled';
+export { default as Input } from './all/Input';

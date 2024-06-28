@@ -1,182 +1,16 @@
-//@ts-nocheck
 import React, { useRef, useState } from 'react';
 import useForm from '../../hooks/useForm';
 import useApi from '../../hooks/useApi';
 import { CustomMainButton, Loader } from '../../components';
 import { useQuery } from '@tanstack/react-query';
 import useApp from '../../hooks/useApp';
-import { Camera, HourGlass, Plus } from '../../icons';
-import Edit from '../../icons/all/Edit';
-import Trash from '../../icons/all/Trash';
+import { Camera, Edit, Plus, Trash, MoodPuzzled } from '../../icons';
 import toast from '../../shared/toast';
 import { useNavigate } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
-
-interface FormData {
-    label: string;
-    type: string;
-    value: string;
-}
-
-interface EditModalProps {
-    index: number;
-    input: FormData[];
-    setInput: React.Dispatch<React.SetStateAction<FormData[]>>;
-    closeModal: () => void;
-}
-
-interface DeleteModalProps {
-    index: number;
-    setInput: React.Dispatch<React.SetStateAction<FormData[]>>;
-    closeModal: () => void;
-}
-
-const TestModal: React.FC<{
-    setInput: React.Dispatch<React.SetStateAction<FormData[]>>;
-    closeModal: () => void;
-}> = ({ setInput, closeModal }) => {
-    const [formData, setFormData] = useState<FormData>({ label: '', type: '', value: '' });
-    const [inputError, setInputError] = useState<boolean>(false);
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (formData.label.toLowerCase() === 'username') {
-            setInputError(true);
-            return;
-        }
-        setInput((prev) => [...prev, formData]);
-        closeModal();
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-
-        if (name === 'label' && value.toLowerCase() === 'username') {
-            setInputError(true);
-        } else {
-            setInputError(false);
-        }
-    };
-
-    return (
-        <div className="col-12">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group mb-4">
-                    <label htmlFor="label">Label</label>
-                    <input
-                        type="text"
-                        name="label"
-                        id="label"
-                        className="basic-input"
-                        onChange={handleInputChange}
-                        value={formData.label}
-                        placeholder="Label"
-                        required
-                    />
-                    {inputError && (
-                        <span className="error-message">Label cannot be "username"</span>
-                    )}
-                </div>
-
-                <div className="form-group mb-4">
-                    <label htmlFor="value">Value</label>
-                    <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        className="basic-input"
-                        onChange={handleInputChange}
-                        value={formData.value}
-                        placeholder="Enter value"
-                        required
-                    />
-                </div>
-
-                <div style={{ margin: '-1rem' }}>
-                    <CustomMainButton type="submit" disabled={inputError}>
-                        Add
-                    </CustomMainButton>
-                </div>
-            </form>
-        </div>
-    );
-};
-
-const EditModal: React.FC<EditModalProps> = ({ index, input, setInput, closeModal }) => {
-    const [formData, setFormData] = useState<FormData>(input[index]);
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const newInput = [...input];
-        newInput[index] = formData;
-        setInput(newInput);
-        closeModal();
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        // Remove trailing colon if present in the name
-        const cleanedName = name.replace(/:$/, '');
-        setFormData((prev) => ({ ...prev, [cleanedName]: value }));
-    };
-
-    return (
-        <div className="col-12">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group mb-4">
-                    <label htmlFor="label">Label</label>
-                    <input
-                        type="text"
-                        name="label"
-                        id="label"
-                        className="basic-input"
-                        onChange={handleInputChange}
-                        value={formData.label}
-                        placeholder="Label"
-                        required
-                    />
-                </div>
-
-                <div className="form-group mb-4">
-                    <label htmlFor="value">Value</label>
-                    <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        className="basic-input"
-                        onChange={handleInputChange}
-                        value={formData.value}
-                        placeholder="Enter value"
-                        required
-                    />
-                </div>
-
-                <div style={{ margin: '-1rem' }}>
-                    <CustomMainButton type="submit">Edit</CustomMainButton>
-                </div>
-            </form>
-        </div>
-    );
-};
-
-const DeleteModal: React.FC<DeleteModalProps> = ({ index, setInput, closeModal }) => {
-    const handleDelete = () => {
-        setInput((prev) => prev.filter((_, i) => i !== index));
-        closeModal();
-    };
-
-    return (
-        <div className="col-12">
-            <p>Are you sure you want to delete this item?</p>
-            <div style={{ display: 'flex', gap: '1rem' }}>
-                <CustomMainButton handleClick={handleDelete}>Delete</CustomMainButton>
-                <CustomMainButton handleClick={closeModal}>Cancel</CustomMainButton>
-            </div>
-        </div>
-    );
-};
+import { omit } from 'lodash';
+import NewCustomEntry from './components/NewCustomEntry';
+import EditCustomEntry from './components/EditCustomEntry';
 
 const CreateCredential: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -185,12 +19,8 @@ const CreateCredential: React.FC = () => {
     const { onChange, onSubmit, values } = useForm(create, { username: '', bio: '' });
     const { user: whoami } = useApp();
     const navigate = useNavigate();
-    const { openModal, setModalBody, closeModal, setTitle } = useModal();
-
-    const [input, setInput] = useState<FormData[]>([
-        { label: 'FirstName', type: 'text', value: 'Morifeoluwa' },
-        { label: 'UserName', type: 'text', value: 'NerdyDev' },
-    ]);
+    const { openModal, setModalBody, setTitle } = useModal();
+    const [customBuiler, setCustomBuilder] = useState<Record<string, string>>({});
 
     const fileRef = useRef<HTMLInputElement>(null);
 
@@ -203,7 +33,7 @@ const CreateCredential: React.FC = () => {
         reader.readAsDataURL(file);
     };
 
-    const { isPending, data: username } = useQuery({
+    const { isPending, data: usernames } = useQuery({
         queryKey: ['nfts'],
         queryFn: async () => {
             const { user } = await useApi();
@@ -237,25 +67,66 @@ const CreateCredential: React.FC = () => {
         setIsLoading(false);
     }
 
-    const openTestModal = () => {
-        setTitle('Add Field');
-        setModalBody(<TestModal setInput={setInput} closeModal={closeModal} />);
-        openModal();
-    };
+    async function createCustomCredential(data: Record<string, any>) {
+        if (isLoading || !whoami || Object.keys(data).length === 0) return;
+        setIsLoading(true);
 
-    const openEditModal = (index: number) => {
-        setTitle('Edit Field');
+        const expires = data.expires ? new Date(data.expires).getTime() : undefined;
+
+        data = omit(data, 'expires');
+
+        const { misc, identity } = await useApi();
+
+        for (const key in data) {
+            if (data[key].startsWith('data:image/')) {
+                const url = await misc.uploadImage(data[key]);
+                if (!url) {
+                    toast({ type: 'error', message: 'Could not upload image' });
+                    setIsLoading(false);
+
+                    return;
+                }
+
+                data[key] = url;
+            }
+        }
+
+        if (await identity.issueVC({ ...data }, expires)) {
+            navigate('/', {
+                state: { should_refresh: true },
+            });
+        }
+
+        setIsLoading(false);
+    }
+
+    function openAddCustomEntryModal() {
+        setModalBody(<NewCustomEntry setCustomBuilder={setCustomBuilder} />);
+        setTitle('Add entry');
+        openModal();
+    }
+
+    function deleteEntry(key: string) {
+        setCustomBuilder((prev) => {
+            const state = { ...prev };
+            delete state[key];
+
+            return state;
+        });
+    }
+
+    function openEditEntryModal(key: string) {
         setModalBody(
-            <EditModal index={index} input={input} setInput={setInput} closeModal={closeModal} />
+            <EditCustomEntry
+                setCustomBuilder={setCustomBuilder}
+                customBuilder={customBuiler}
+                identifier={key}
+            />
         );
-        openModal();
-    };
 
-    const openDeleteModal = (index: number) => {
-        setTitle('Delete Field');
-        setModalBody(<DeleteModal index={index} setInput={setInput} closeModal={closeModal} />);
+        setTitle('Edit entry');
         openModal();
-    };
+    }
 
     return (
         <div className="container">
@@ -330,7 +201,7 @@ const CreateCredential: React.FC = () => {
                                         --select a username--
                                     </option>
 
-                                    {username?.map((username) => (
+                                    {usernames?.map((username) => (
                                         <option value={username} key={username}>
                                             {username}
                                         </option>
@@ -362,29 +233,85 @@ const CreateCredential: React.FC = () => {
 
                 {selectedIndex === 1 && (
                     <div className="group-custom">
-                        <div className="no-data mb-3">
-                            <HourGlass size={45} />
-                            <p>Coming soon, check back later :-)</p>
-                        </div>
+                        <div className="col-12">
+                            <form
+                                action="#"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    createCustomCredential(customBuiler);
+                                }}
+                            >
+                                {Object.keys(customBuiler).length == 0 ? (
+                                    <div className="empty-creed mb-4">
+                                        <MoodPuzzled size={45} className="mb-1" />
+                                        <h3>Confused?</h3>
+                                        <p>
+                                            Click on the button below to add entries and start
+                                            building your credential
+                                        </p>
 
-                        {/* {input.map((item, index) => (
-                            <div className="Group" key={index}>
-                                <p>{item.label}: </p>
-                                <div className="custom-Info">
-                                    <span>{item.value}</span>
-                                    <div className="icons">
-                                        <Edit handleClick={() => openEditModal(index)} />
-                                        <Trash handleClick={() => openDeleteModal(index)} />
+                                        <button type="button" onClick={openAddCustomEntryModal}>
+                                            <span>Add entry</span>
+                                            <Plus size={22} />
+                                        </button>
                                     </div>
+                                ) : (
+                                    <div className="mb-4 builder-div">
+                                        <div>
+                                            {Object.keys(customBuiler).map((item, i) => (
+                                                <div
+                                                    className="d-flex single justify-content-between"
+                                                    key={`custom-entry-${i}`}
+                                                >
+                                                    <div className="w-100">
+                                                        <h4 className="title-case">
+                                                            {item.split('_').join(' ')}
+                                                        </h4>
+
+                                                        <p>
+                                                            {customBuiler[item].startsWith(
+                                                                'data:image/'
+                                                            ) ? (
+                                                                <img src={customBuiler[item]} />
+                                                            ) : (
+                                                                customBuiler[item]
+                                                            )}
+                                                        </p>
+                                                    </div>
+
+                                                    <div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => openEditEntryModal(item)}
+                                                        >
+                                                            <Edit />
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => deleteEntry(item)}
+                                                        >
+                                                            <Trash />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <button onClick={openAddCustomEntryModal} type="button">
+                                            <span>Add new entry</span>
+                                            <Plus size={22} />
+                                        </button>
+                                    </div>
+                                )}
+
+                                <div style={{ margin: '-1rem' }}>
+                                    <CustomMainButton isLoading={isLoading} type="submit">
+                                        Create
+                                    </CustomMainButton>
                                 </div>
-                            </div>
-                        ))}
-                        <div className="group_button">
-                            <button className="addbutton" onClick={openTestModal}>
-                                Add
-                                <Plus />
-                            </button>
-                        </div> */}
+                            </form>
+                        </div>
                     </div>
                 )}
             </div>

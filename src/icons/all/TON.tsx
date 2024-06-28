@@ -1,13 +1,11 @@
-const TonIcon = ({
-    size,
-    fill,
-    className,
-}: Omit<IconProps, 'width' | 'height'> & { size?: number }) => {
+import React from 'react';
+
+const TonIcon: React.FC<IconProps> = ({ size = 16, fill, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={size || 16}
-            height={size || 16}
+            width={size}
+            height={size}
             className={className}
             fill="none"
             viewBox="0 0 16 16"

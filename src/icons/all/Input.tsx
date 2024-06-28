@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Edit: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) => {
+const Input: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -12,13 +12,13 @@ const Edit: React.FC<IconProps> = ({ className, fill, handleClick, size = 24 }) 
             strokeLinejoin="round"
             strokeWidth="1.5"
             className={className}
-            viewBox="0 0 24 24"
             onClick={handleClick}
+            viewBox="0 0 24 24"
         >
             <path stroke="none" d="M0 0h24v24H0z"></path>
-            <path d="M4 20h4L18.5 9.5a2.828 2.828 0 10-4-4L4 16v4M13.5 6.5l4 4"></path>
+            <path d="M12 3a3 3 0 00-3 3v12a3 3 0 003 3M6 3a3 3 0 013 3v12a3 3 0 01-3 3M13 7h7a1 1 0 011 1v8a1 1 0 01-1 1h-7M5 7H4a1 1 0 00-1 1v8a1 1 0 001 1h1M17 12h.01M13 12h.01"></path>
         </svg>
     );
 };
 
-export default Edit;
+export default Input;

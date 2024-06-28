@@ -48,6 +48,8 @@ const SingleCredential: React.FC<{}> = () => {
         let hash = jwt;
         if (!isHex(hash!)) hash = (await sha256(jwt)).toString('hex');
 
+        console.log(hash);
+
         const { identity } = await useApi();
         const resp = await identity.revoke(hash!);
         if (resp) {
@@ -72,7 +74,8 @@ const SingleCredential: React.FC<{}> = () => {
                             <div className="top">
                                 <img
                                     src={
-                                        findImageFromCreeds(data.credential.credentialSubject) || ''
+                                        findImageFromCreeds(data.credential.credentialSubject) ||
+                                        '/images/fallback.png'
                                     }
                                     alt={data.credential.credentialSubject.username}
                                 />
